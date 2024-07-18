@@ -35,7 +35,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CustomError> dataBase(MethodArgumentNotValidException ex, HttpServletRequest request) {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-        ValidationError validationError = new ValidationError(Instant.now(), status.value(), ex.getMessage(), request.getRequestURI());
+        ValidationError validationError = new ValidationError(Instant.now(), status.value(), "dados invalidos", request.getRequestURI());
         ex.getBindingResult().getFieldErrors().forEach(x -> validationError.addFieldError(x.getField(), x.getDefaultMessage()));
         return ResponseEntity.status(status).body(validationError);
     }
