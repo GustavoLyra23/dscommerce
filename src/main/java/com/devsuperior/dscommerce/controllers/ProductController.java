@@ -19,7 +19,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProductDto> fidById(@PathVariable Long id) {
+    public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
         ProductDto dto = productService.findById(id);
         return ResponseEntity.ok(dto);
     }
@@ -35,6 +35,12 @@ public class ProductController {
         productDto = productService.insert(productDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(productDto.getId()).toUri();
         return ResponseEntity.created(uri).body(productDto);
-
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto productDto) {
+        productDto = productService.update(id, productDto);
+        return ResponseEntity.ok(productDto);
+    }
+
 }
