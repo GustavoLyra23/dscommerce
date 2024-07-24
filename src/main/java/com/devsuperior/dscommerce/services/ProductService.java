@@ -1,6 +1,7 @@
 package com.devsuperior.dscommerce.services;
 
 import com.devsuperior.dscommerce.dto.ProductDto;
+import com.devsuperior.dscommerce.dto.ProductMinDto;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.repositories.ProductRepository;
 import com.devsuperior.dscommerce.services.exceptions.DatabaseException;
@@ -27,9 +28,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDto> findAll(Pageable pageable) {
+    public Page<ProductMinDto> findAll(Pageable pageable) {
         Page<Product> products = productRepository.findAll(pageable);
-        return products.map(ProductDto::new);
+        return products.map(ProductMinDto::new);
     }
 
     @Transactional()
