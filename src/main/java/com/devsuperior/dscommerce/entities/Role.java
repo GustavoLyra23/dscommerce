@@ -1,5 +1,6 @@
 package com.devsuperior.dscommerce.entities;
 
+import com.devsuperior.dscommerce.projections.UserDetailsProjection;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -13,6 +14,12 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String authority;
+
+    public Role(UserDetailsProjection projection) {
+        id = projection.getRoleId();
+        authority = projection.getAuthority();
+    }
+
 
     public Role() {
     }
