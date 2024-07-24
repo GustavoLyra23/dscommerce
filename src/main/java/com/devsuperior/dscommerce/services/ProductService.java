@@ -1,7 +1,9 @@
 package com.devsuperior.dscommerce.services;
 
+import com.devsuperior.dscommerce.dto.CategoryDto;
 import com.devsuperior.dscommerce.dto.ProductDto;
 import com.devsuperior.dscommerce.dto.ProductMinDto;
+import com.devsuperior.dscommerce.entities.Category;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.repositories.ProductRepository;
 import com.devsuperior.dscommerce.services.exceptions.DatabaseException;
@@ -37,7 +39,7 @@ public class ProductService {
     public ProductDto insert(ProductDto productDto) {
         Product entity = new Product();
         copyDtoToEntity(productDto, entity);
-        entity = productRepository.save(entity);
+        productRepository.save(entity);
         return new ProductDto(entity);
     }
 
@@ -71,6 +73,14 @@ public class ProductService {
         product.setDescription(dto.getDescription());
         product.setPrice(dto.getPrice());
         product.setImgUrl(dto.getImgUrl());
+
+        product.getCategories().clear();
+
+        for (CategoryDto obj : dto.getCategories()) {
+            Category category = new Category();
+            category.setId(obj.getId());
+            product.getCategories().add(category);
+        }
     }
 
 }
