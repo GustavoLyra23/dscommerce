@@ -74,6 +74,11 @@ public class Order {
         this.client = client;
     }
 
+
+    public Payment getPayment() {
+        return payment;
+    }
+
     public Set<OrderItem> getOrderItems() {
         return orderItems;
     }
