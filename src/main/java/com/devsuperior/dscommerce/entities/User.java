@@ -153,8 +153,17 @@ public class User implements UserDetails {
         roles.add(role);
     }
 
-    public boolean hasRole(String roleName) {
-        return roles.contains(roleName);
+    public boolean hasRole(Role role) {
+        return roles.contains(role);
+    }
+
+    public boolean hasRole(String name) {
+        for (Role role : roles) {
+            if (role.getAuthority().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
